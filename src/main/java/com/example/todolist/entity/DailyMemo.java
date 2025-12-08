@@ -6,24 +6,22 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "todos")
+@Table(name = "daily_memo")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Todo {
+public class DailyMemo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String task;
-
-    @Column(nullable = false)
-    private boolean completed;
-
-    @Column(name = "todo_date", nullable = false)
+    @Column(name = "memo_date", nullable = false, unique = true)
     private LocalDate date;
+
+    @Lob
+    @Column(nullable = false)
+    private String content;
 }
