@@ -18,7 +18,6 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    // 날짜별 Todo 조회
     public List<TodoResponseDto> getTodosByDate(LocalDate date) {
         List<Todo> todos = todoRepository.findAllByDateOrderByIdAsc(date);
         return todos.stream()
@@ -26,7 +25,6 @@ public class TodoService {
                 .toList();
     }
 
-    // Todo 생성
     public TodoResponseDto save(TodoRequestDto request) {
         LocalDate date = request.getDate();
         if (date == null) {
@@ -43,7 +41,6 @@ public class TodoService {
         return toDto(saved);
     }
 
-    // Todo 삭제
     public void delete(Long id) {
         if (!todoRepository.existsById(id)) {
             throw new IllegalArgumentException("해당 ID의 Todo가 존재하지 않습니다.");
@@ -51,7 +48,6 @@ public class TodoService {
         todoRepository.deleteById(id);
     }
 
-    // Todo 수정
     public TodoResponseDto update(Long id, TodoRequestDto request) {
         Todo todo = todoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 ID의 Todo가 존재하지 않습니다."));
